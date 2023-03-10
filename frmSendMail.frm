@@ -173,20 +173,12 @@ Private Function MailSend(xUsername, xPassword, xServer, xMailTo, xSubject, xFro
     Set msgA = CreateObject("CDO.Message") 'set the CDO to reffer as.
     
     
-    'msgA.sender = "tom@bretthq.com"
     msgA.From = xFrom
     msgA.To = xMailTo 'get targeted mail from command
     msgA.Subject = xSubject 'get subject from command
     msgA.HTMLBody = xMainText 'Main Text - You may use HTML tags here, for example <BR> to immitate "VBCRLF" (start new line) etc.
     ' HTMLBODY is a STRING, do not try to link a multilined textbox to it without using the ''replace'' function for 'VBCRLf' with '<BR>' (example later)
     
-    'Notice, i simplified it, however, you may use more values depending on your needs, such as:
-    '.Bcc = "mail@mail.com" ' - BCC..
-    '.Cc = "mail@mail.com" ' - CC..
-    '.From
-    '.CreateMHTMLBody ("www.mywebsite.com/index.html) 'send an entire webpage from a site
-    '.CreateMHTMLBody ("c:\program files\download.htm) 'Send an entire webpage from your PC
-    '.AddAttachment ("c:\myfile.zip") 'Send a file from your pc (notice uploading may take a while depending on your connection)
         
      If Dir(xFilepath) <> "" Then
       MsgBox "File exists"
@@ -199,9 +191,9 @@ Private Function MailSend(xUsername, xPassword, xServer, xMailTo, xSubject, xFro
     End If
         
         
-    'Gmail Username (from which mail will be sent)
+    'mail Username (from which mail will be sent)
     msgA.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/sendusername") = xUsername
-    'Gmail Password
+    'mail Password
     msgA.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/sendpassword") = xPassword
     
     'Mail Server address.
@@ -238,14 +230,11 @@ End Function
 Private Sub Command1_Click()
 
 
-'Usage: GmailSend ("USERNAME","PASSWORD","SendTo@mail.com","Subject","Text Body <br> New line Here"
-'As i was saying, to multiline textbox won't work here. so you'll have to use the Replace function BEFORE sending the mail.
-
-
 sFilePath = "C:\my-source\sfilepath.txt"
 
 Replace TextBody.Text, vbCrLf, "<br>"
 
+'usage
 'username'password'server'recipient'subject'from'message'file-attachment
 
 If MailSend(txtUserName.Text, txtPassword.Text, txtSmtpServer.Text, txtRecipient.Text, txtSubject.Text, txtFrom.Text, TextBody.Text, txtFileAttachment.Text) = 0 Then
@@ -270,3 +259,6 @@ CommonDialog1.ShowOpen
 txtFileAttachment.Text = CommonDialog1.FileName
 End Sub
 
+Private Sub Form_Load()
+
+End Sub
